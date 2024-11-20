@@ -3,12 +3,10 @@ import './index.css'
 
 // react-router-domのインポート
 import ReactDOM from 'react-dom/client'
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom'
 
 // 画面コンポーネントをインポート
-import { AppRoutes }  from './Route.tsx';
-
-
+import { AppRoutes }  from './Route.tsx'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <StrictMode>
