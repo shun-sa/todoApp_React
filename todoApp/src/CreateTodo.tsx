@@ -1,22 +1,34 @@
-import { useState } from 'react'
+import { createTodoList } from './graphql/mutations'
+import { generateClient } from 'aws-amplify/api'
 
 function CreateTodo() {
-    const [count, setCount] = useState(0)
+
+    const client = generateClient();
+
+    async function createTodo() {
+
+      // 新規Todoを作成
+      const result = await client.graphql({
+        query: createTodoList,
+        variables: {
+          input: {
+            id: 1,
+            title: 'New Todo',
+            description: 'This is a new todo',
+            status: '進行中',
+          },
+        },
+      });
+
+      // 結果をコンソールに出力
+      console.log(result);
+    }
   
     return (
       <>
-        <h1>Vite + React</h1>
-        <div className="card">
-          <button onClick={() => setCount((count) => count + 1)}>
-            count is {count}
-          </button>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test HMR
-          </p>
-        </div>
-        <p className="read-the-docs">
-          Click on the Vite and React logos to learn more
-        </p>
+        <button onClick={createTodo}>
+          Todo登録
+        </button>
   
       </>
     )

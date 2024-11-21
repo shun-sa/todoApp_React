@@ -1,0 +1,135 @@
+schema {
+  query: Query
+  mutation: Mutation
+  subscription: Subscription
+}
+
+type Mutation {
+  createTodoList(input: CreateTodoListInput!): TodoList
+  deleteTodoList(input: DeleteTodoListInput!): TodoList
+  updateTodoList(input: UpdateTodoListInput!): TodoList
+}
+
+type Query {
+  getTodoList(id: Int!): TodoList
+  listTodoLists(filter: TableTodoListFilterInput, limit: Int, nextToken: String): TodoListConnection
+}
+
+type Subscription {
+  onCreateTodoList(createdAt: AWSDateTime, description: String, id: Int, status: String, title: String): TodoList @aws_subscribe(mutations : ["createTodoList"])
+  onDeleteTodoList(createdAt: AWSDateTime, description: String, id: Int, status: String, title: String): TodoList @aws_subscribe(mutations : ["deleteTodoList"])
+  onUpdateTodoList(createdAt: AWSDateTime, description: String, id: Int, status: String, title: String): TodoList @aws_subscribe(mutations : ["updateTodoList"])
+}
+
+type TodoList {
+  createdAt: AWSDateTime
+  description: String!
+  id: Int!
+  status: String!
+  title: String!
+  updatedAt: AWSDateTime
+}
+
+type TodoListConnection {
+  items: [TodoList]
+  nextToken: String
+}
+
+input CreateTodoListInput {
+  createdAt: AWSDateTime
+  description: String!
+  id: Int!
+  status: String!
+  title: String!
+  updatedAt: AWSDateTime
+}
+
+input DeleteTodoListInput {
+  id: Int!
+}
+
+input ModelSizeInput {
+  between: [Int]
+  eq: Int
+  ge: Int
+  gt: Int
+  le: Int
+  lt: Int
+  ne: Int
+}
+
+input TableBooleanFilterInput {
+  attributeExists: Boolean
+  eq: Boolean
+  ne: Boolean
+}
+
+input TableFloatFilterInput {
+  attributeExists: Boolean
+  between: [Float]
+  eq: Float
+  ge: Float
+  gt: Float
+  le: Float
+  lt: Float
+  ne: Float
+}
+
+input TableIDFilterInput {
+  attributeExists: Boolean
+  beginsWith: ID
+  between: [ID]
+  contains: ID
+  eq: ID
+  ge: ID
+  gt: ID
+  le: ID
+  lt: ID
+  ne: ID
+  notContains: ID
+  size: ModelSizeInput
+}
+
+input TableIntFilterInput {
+  attributeExists: Boolean
+  between: [Int]
+  eq: Int
+  ge: Int
+  gt: Int
+  le: Int
+  lt: Int
+  ne: Int
+}
+
+input TableStringFilterInput {
+  attributeExists: Boolean
+  beginsWith: String
+  between: [String]
+  contains: String
+  eq: String
+  ge: String
+  gt: String
+  le: String
+  lt: String
+  ne: String
+  notContains: String
+  size: ModelSizeInput
+}
+
+input TableTodoListFilterInput {
+  createdAt: TableStringFilterInput
+  description: TableStringFilterInput
+  id: TableIntFilterInput
+  status: TableStringFilterInput
+  title: TableStringFilterInput
+  updatedAt: TableStringFilterInput
+}
+
+input UpdateTodoListInput {
+  createdAt: AWSDateTime
+  description: String
+  id: Int!
+  status: String
+  title: String
+  updatedAt: AWSDateTime
+}
