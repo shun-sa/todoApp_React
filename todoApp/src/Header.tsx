@@ -1,40 +1,58 @@
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { AppBar, IconButton, Toolbar, Typography } from '@mui/material';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { useNavigate } from 'react-router-dom';
 
-export default function Header({}) {
+
+function Header({}) {
+
+    const navigate = useNavigate(); // 遷移用フック
+
+    const handleBackClick = () => {
+        navigate(-1); // 前のページに遷移
+    };
 
     return (
-        <header style={{ 
-            display: 'flex', 
-            justifyContent: 'space-between', 
-            alignItems: 'center', 
-            position: 'fixed', 
-            top: 0, 
-            left: 0,
-            width: '100%', 
-            backgroundColor: 'white', 
-            zIndex: 1000, 
-            padding: '10px 20px', 
-            boxShadow: '0 2px 4px rgba(0,0,0,0.1)' 
-        }}>
-            <p 
-                style={{
-                    fontSize: '1.5rem',
-                    fontWeight: 500,
-                    color: 'rgba(0,0,0,1)'
-                }}
-            >
-                TODOアプリ
-            </p>
+        <AppBar 
+            position="static" 
+            sx={{ 
+                backgroundColor: '#1976d2', 
+                boxShadow: 'none',
+                borderBottom: '1px solid #ddd',
+                height: '64px'
+            }}
+        >
+            <Toolbar 
+                sx={{
+                    display: 'flex', 
+                    justifyContent: 'space-between' 
+                }}>
+                {/* 左側の戻るボタン */}
+                <IconButton 
+                    edge="start" 
+                    color="inherit" 
+                    onClick={handleBackClick} 
+                    aria-label="back"
+                >
+                    <ArrowBackIcon />
+                </IconButton>
 
-            <div>
-          <a href="https://vite.dev" target="_blank">
-            <img src={viteLogo} className="logo" alt="Vite logo" />
-          </a>
-          <a href="https://react.dev" target="_blank">
-            <img src={reactLogo} className="logo react" alt="React logo" />
-          </a>
-        </div>
-        </header>
+                {/* 中央のタイトル */}
+                <Typography
+                    variant="h6"
+                    sx={{
+                        flexGrow: 1,
+                        textAlign: 'center', // 中央揃え
+                        fontSize: '1.5rem',
+                    }}
+                >
+                    TODOアプリ
+                </Typography>
+
+                {/* 右側のスペーサー（ボタンがない場合の余白調整） */}
+                <div style={{ width: '48px' }} /> {/* アイコンボタンのサイズと合わせる */}
+            </Toolbar>
+        </AppBar>
     );
 };
+
+export default Header;

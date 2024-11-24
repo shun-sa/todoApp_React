@@ -8,6 +8,7 @@ import Header from './Header.tsx'
 
 import { Amplify } from 'aws-amplify'
 
+// Amplifyの設定
 Amplify.configure({
   API: {
     GraphQL: {
@@ -22,15 +23,17 @@ Amplify.configure({
 function App() {
 
   return (
-    <>
+    <div style={{ width: '100%', height: '100vh', overflow: 'hidden' }}>
 
       {/* Headerコンポーネントを呼び出す */}
       <Header />
 
       {/* メインコンポーネントを呼び出す */}
-      <Outlet />
+      <div style={{ width: '100%', height: 'calc(100vh - 64px)' }}>
+        <Outlet />
+      </div>
       
-    </>
+    </div>
   )
 }
 
