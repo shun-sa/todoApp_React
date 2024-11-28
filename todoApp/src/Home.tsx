@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import { generateClient, GraphQLResult } from 'aws-amplify/api';
-import { ListTodoListsQuery } from './API';
+import { DeleteTodoListMutation, ListTodoListsQuery } from './API';
 import { listTodoLists } from './graphql/queries';
 
 import SearchForm from './SearchForm';
 import HomeButtonComponent from './HomeButtonComponent';
 import TodoListComponent from './TodoListComponent';
+import { deleteTodoList } from './graphql/mutations';
 
 function Home() {
   
@@ -78,6 +79,31 @@ function Home() {
     }
   };
 
+  const handleDeleteTodo = (idToDelete : number) => {
+
+    // Todoリストから削除対象のTodoを除外
+    setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== idToDelete));
+
+    // Todo削除処理(API呼び出し)
+    const result: Promise<GraphQLResult<DeleteTodoListMutation>> = client.graphql({
+      query: deleteTodoList,
+      variables: {
+        input: {
+          id: idToDelete,
+        },
+      },
+    });
+
+    result.then((data) => {
+      if (data) {
+        alert('Todoを削除しました。');
+      }
+      else {
+        alert('Todoの削除に失敗しました。');
+      }
+    });
+  };
+
   // Todo追加処理
   const addTodo = (todoId: number, todoTitle: string, todoDescription: string, todoStatus: string) => {
     const newTodo: Todo = {
@@ -91,14 +117,24 @@ function Home() {
     setTodos((prevTodos) => (prevTodos ? [...prevTodos, newTodo] : [newTodo]));
   };
 
+  // ステータス更新処理
+  const handleStatusChange = (id: number, newStatus: string) => {
+    // 現在のtodosを変更せず、新しい状態を反映
+      setTodos((prevTodos) => {
+        return prevTodos.map((todo) =>
+          todo.id === id ? { ...todo, status: newStatus } : todo
+        );
+      });
+  };
+
   return (
     <>
       
       <SearchForm onSearch={handleSearcch} />
 
-      <HomeButtonComponent />
+      <HomeButtonComponent onDeleteTodo={handleDeleteTodo}/>
 
-      <TodoListComponent todos={todos} />
+      <TodoListComponent todos={todos} onStatusChange={handleStatusChange} />
 
     </>
   )

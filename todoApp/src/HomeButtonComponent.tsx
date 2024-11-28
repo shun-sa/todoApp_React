@@ -1,18 +1,11 @@
 import { Box, Button } from '@mui/material';
-import { generateClient, GraphQLResult } from 'aws-amplify/api';
 import { useNavigate } from 'react-router-dom';
-import { DeleteTodoListMutation } from './API';
-import { deleteTodoList } from './graphql/mutations';
 
-function HomeButtonComponent() {
+function HomeButtonComponent({onDeleteTodo}: {onDeleteTodo: (id : number) => void}) {
 
   // コンポーネント切り替えの設定
   const navigate = useNavigate();
   const handleCreateTodo = () => navigate('/create');
-
-
-  // APIクライアントの生成
-  const client = generateClient();
 
   // Todo削除ボタン押下時の処理
   function handleDeleteTodo() {
@@ -28,30 +21,8 @@ function HomeButtonComponent() {
     // 入力値を数値に変換
     const idToDelete = parseInt(inputId, 10);
 
-    // Todo削除処理(API呼び出し)
-    const result: Promise<GraphQLResult<DeleteTodoListMutation>> = client.graphql({
-      query: deleteTodoList,
-      variables: {
-        input: {
-          id: idToDelete,
-        },
-      },
-    });
-
-    // レスポンスの処理
-    result.then((data) => {
-      if (data) {
-        alert(`ID ${idToDelete} のTodoを削除しました。`);
-      } else {
-        alert(`ID ${idToDelete} のTodo削除に失敗しました。`);
-      }
-    })
-    .catch(() => {
-      alert(`ID ${idToDelete} のTodo削除中にエラーが発生しました。`);
-    });
-
-    // ページをリロード
-    window.location.reload();
+    // Todo削除処理
+    onDeleteTodo(idToDelete);
   }
 
   return (

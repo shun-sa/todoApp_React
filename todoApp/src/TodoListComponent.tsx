@@ -14,9 +14,10 @@ interface Todo {
 // TodoリストのProps定義
 interface TodoListComponentProps {
     todos: Todo[];
+    onStatusChange: (id: number, newStatus: string) => void;
 }
 
-const TodoListComponent: React.FC<TodoListComponentProps> = ({ todos }) => {
+const TodoListComponent: React.FC<TodoListComponentProps> = ({ todos, onStatusChange }) => {
 
   // APIクライアントの生成
   const client = generateClient();
@@ -41,6 +42,7 @@ const TodoListComponent: React.FC<TodoListComponentProps> = ({ todos }) => {
 
       if (result.data) {
         alert(`ID ${id} のステータスを ${newStatus} に更新しました。`);
+        onStatusChange(id, newStatus);
       } else {
         alert(`ID ${id} のステータス更新に失敗しました。`);
       }
@@ -48,8 +50,6 @@ const TodoListComponent: React.FC<TodoListComponentProps> = ({ todos }) => {
       alert(`ID ${id} のステータス更新に失敗しました。`);
     }
 
-    // ページをリロード
-    window.location.reload();
   };
 
     return (

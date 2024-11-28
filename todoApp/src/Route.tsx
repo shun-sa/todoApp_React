@@ -12,6 +12,10 @@ export const AppRoutes = () => {
         <Route index element={<Home />} />
         <Route path="*" element={<NotFound />} />
         <Route path="/create" element={<CreateTodo/>} />
+        {/* 
+            課題1
+            新規Todo登録画面のpathを設定する。 
+        */}
       </Route>
     </Routes>
   );
