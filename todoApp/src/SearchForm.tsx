@@ -60,6 +60,7 @@ function SearchForm({ onSearch }: SearchFormProps) {
           width: '100%',
         }}
       >
+        {/* 検索文字入力フィールド */}
         <TextField
           variant="outlined"
           placeholder="検索文字を入力（詳細情報の検索）"
@@ -101,6 +102,8 @@ function SearchForm({ onSearch }: SearchFormProps) {
             },
           }}
         />
+
+        {/* 検索ボタン */}
         <IconButton
           onClick={handleSearch}
           sx={{
@@ -116,6 +119,7 @@ function SearchForm({ onSearch }: SearchFormProps) {
         >
           <SearchIcon />
         </IconButton>
+        
       </Box>
     );
 }

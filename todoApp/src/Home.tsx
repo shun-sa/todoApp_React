@@ -87,6 +87,7 @@ function Home() {
     }
   };
 
+  // Todo削除処理
   const handleDeleteTodo = (idToDelete : number) => {
 
     // Todoリストから削除対象のTodoを除外

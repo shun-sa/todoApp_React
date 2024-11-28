@@ -57,6 +57,7 @@ const TodoListComponent: React.FC<TodoListComponentProps> = ({ todos, onStatusCh
         
         <Table>
 
+          {/* ヘッダー */}
           <TableHead>
             <TableRow sx={{ backgroundColor: '#f5f5f5' }}>
               <TableCell align="center" sx={{ fontWeight: 'bold' }}>ID</TableCell>
@@ -66,6 +67,7 @@ const TodoListComponent: React.FC<TodoListComponentProps> = ({ todos, onStatusCh
             </TableRow>
           </TableHead>
 
+          {/* データ */}
           <TableBody>
             {sortedTodos.map((todo) => (
               <TableRow key={todo.id} sx={{ '&:hover': { backgroundColor: '#f0f8ff' } }}>

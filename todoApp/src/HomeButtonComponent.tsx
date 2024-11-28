@@ -36,6 +36,7 @@ function HomeButtonComponent({onDeleteTodo}: {onDeleteTodo: (id : number) => voi
         mb: 3, // テーブルとの間隔
       }}
     >
+      {/* 新規Todo作成ボタン */}
       <Button
         onClick={handleCreateTodo}
         variant="contained"
@@ -51,6 +52,7 @@ function HomeButtonComponent({onDeleteTodo}: {onDeleteTodo: (id : number) => voi
         新規Todo作成
       </Button>
 
+      {/* Todo削除ボタン */}
       <Button
         onClick={handleDeleteTodo}
         variant="outlined"
@@ -65,6 +67,7 @@ function HomeButtonComponent({onDeleteTodo}: {onDeleteTodo: (id : number) => voi
       >
         Todo削除
       </Button>
+      
     </Box>
   );
 }

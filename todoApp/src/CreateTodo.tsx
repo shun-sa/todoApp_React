@@ -91,21 +91,21 @@ function CreateTodo() {
 
   // 空いているIDを探す関数
 function findEmptyId(usedIds: number[]): number {
-  const sortedIds = usedIds.filter(id => id > 0).sort((a, b) => a - b); // IDをソート
-  let currentId = 1;
 
-  console.log( 'sortIds : ' +sortedIds);
+  // IDをソート
+  const sortedIds = usedIds.filter(id => id > 0).sort((a, b) => a - b);
+  let currentId = 1;
 
   for (const id of sortedIds) {
     if (id !== currentId) {
-      console.log( 'currentId(sort後) : ' +currentId);
-      return currentId; // 空いている最小のIDを返す
+      // 空いている最小のIDを返す
+      return currentId;
     }
     currentId++;
   }
 
-  console.log( 'currentId : ' +currentId);
-  return currentId; // 連続している場合、次のIDを返す
+  // 連続している場合、次のIDを返す
+  return currentId;
 }
 
   return (
