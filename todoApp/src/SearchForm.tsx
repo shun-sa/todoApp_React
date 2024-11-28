@@ -3,6 +3,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
 import { useState } from 'react';
 
+// 検索フォームのProps型定義
 interface SearchFormProps {
     onSearch: (searchText: string) => void;
 }
