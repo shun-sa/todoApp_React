@@ -73,7 +73,7 @@ function Home() {
   }
 
   // 検索処理
-  const handleSearch = (searchText: string) => {
+  const searchTodoList = (searchText: string) => {
     // 検索文字列が空の場合は全てのTodoを表示
     if (searchText === '') {
       fetchTodoList();
