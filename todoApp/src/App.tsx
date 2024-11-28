@@ -8,7 +8,7 @@ import Header from './Header.tsx'
 
 import { Amplify } from 'aws-amplify'
 
-// Amplifyの設定
+// Amplifyの設定（任意課題のクライアント変更部分）
 Amplify.configure({
   API: {
     GraphQL: {
