@@ -2,9 +2,18 @@ import { useEffect, useState } from 'react';
 import { generateClient, GraphQLResult } from 'aws-amplify/api';
 import { DeleteTodoListMutation, ListTodoListsQuery } from './API';
 import { listTodoLists } from './graphql/queries';
+/*
+   課題1
+    新規Todo登録ボタン、削除ボタン用のコンポーネントをインポートする。  
+*/
 
-import SearchForm from './SearchForm';
 import HomeButtonComponent from './HomeButtonComponent';
+/* 
+   課題2
+    検索フォーム用のコンポーネントをインポートする。
+*/
+import SearchForm from './SearchForm';
+
 import TodoListComponent from './TodoListComponent';
 import { deleteTodoList } from './graphql/mutations';
 
@@ -130,8 +139,16 @@ function Home() {
   return (
     <>
       
+      {/* 
+        課題2
+        検索フォームを追加する。 
+      */}
       <SearchForm onSearch={handleSearcch} />
 
+      {/* 
+        課題1
+        新規Todo登録ボタン、Todo削除ボタンを追加する。
+       */}
       <HomeButtonComponent onDeleteTodo={handleDeleteTodo}/>
 
       <TodoListComponent todos={todos} onStatusChange={handleStatusChange} />

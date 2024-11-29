@@ -1,6 +1,10 @@
 import { Box, IconButton, InputAdornment, TextField } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
+/*
+  課題2
+  Stateを管理するためにReact hooksの機能をインポートする。
+*/
 import { useState } from 'react';
 
 interface SearchFormProps {
@@ -9,21 +13,39 @@ interface SearchFormProps {
 
 function SearchForm({ onSearch }: SearchFormProps) {
 
+    /* 
+      課題2
+      検索する文字列をStateで管理する。
+    */
     // 検索文字列のState管理
     const [searchText, setSearchText] = useState('');
 
     // 検索ボタン押下時の処理
     function handleSearch() {
+        /*
+          課題2
+          検索文字列をStateから取得する。
+          文字列はonSearch関数に渡す。
+        */
         onSearch(searchText);
     }
 
     // 検索文字列の変更時の処理
     const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        /*
+          課題2
+          検索する文字列をStateに格納する。
+          検索する文字列は、'event.target.value'で取得できる。 
+        */
         setSearchText(event.target.value);
     };
     
     // クリアボタン押下時の処理
     const handleClear = () => {
+        /*
+          課題2
+          検索する文字列のStateを空文字にする。
+        */
         setSearchText('');
         onSearch('');
     };
@@ -42,6 +64,11 @@ function SearchForm({ onSearch }: SearchFormProps) {
         <TextField
           variant="outlined"
           placeholder="検索文字を入力（詳細情報の検索）"
+          /* 
+            課題2
+            valueに検索文字列のStateを設定する。
+            value={State名}
+          */ 
           value={searchText}
           onChange={handleSearchChange}
           fullWidth
@@ -60,7 +87,13 @@ function SearchForm({ onSearch }: SearchFormProps) {
                   <SearchIcon />
                 </InputAdornment>
               ),
-              endAdornment: searchText && (
+              endAdornment: 
+              /* 
+                課題2
+                以下のように編集することで、クリアボタンを表示する。
+                State名 && 
+              */
+              searchText && (
                 <InputAdornment position="end">
                   <IconButton onClick={handleClear}>
                     <ClearIcon />
