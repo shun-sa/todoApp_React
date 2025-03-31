@@ -15,7 +15,7 @@ Amplify.configure({
       endpoint: 'https://3czclhy4s5hzhjdeb3gdjnwtsi.appsync-api.ap-northeast-1.amazonaws.com/graphql',
       region: 'ap-northeast-1',
       defaultAuthMode: 'apiKey',
-      apiKey: 'da2-m5ll7romdbdxnpnisplhxc2nnq'
+      apiKey: 'da2-ergzmresqnc73hydayujy3ngsq'
     }
   }
 });
