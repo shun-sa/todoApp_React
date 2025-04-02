@@ -2,6 +2,10 @@ import { useEffect, useState } from 'react';
 import { generateClient, GraphQLResult } from 'aws-amplify/api';
 import { DeleteTodoListMutation, ListTodoListsQuery } from './API';
 import { listTodoLists } from './graphql/queries';
+
+// axiosをインポート
+import axios from 'axios';
+import { Button } from '@mui/material';
 /*
    課題1
     新規Todo登録ボタン、削除ボタン用のコンポーネントをインポートする。  
@@ -18,6 +22,9 @@ import TodoListComponent from './TodoListComponent';
 import { deleteTodoList } from './graphql/mutations';
 
 function Home() {
+
+  // LambdaリクエストURL
+  const lambdaUrl: string = ' https://b84rqnypa8.execute-api.ap-northeast-1.amazonaws.com/main/';
   
   // Todoの型定義
   interface Todo {
@@ -29,6 +36,9 @@ function Home() {
     
   // TodoリストのState管理
   const [todos, setTodos] = useState<Todo[]>([]);
+
+  // Lambdaリクエスト処理結果のState
+  const [lambdaResponse, setLambdaResponse] = useState<string>('');
     
   // APIクライアントの生成
   const client = generateClient();
@@ -136,6 +146,19 @@ function Home() {
       });
   };
 
+  // Lambdaリクエスト処理
+  const handleLambdaRequest = () => {
+    axios.get(lambdaUrl)
+      .then((response) => {
+        // Lambdaのレスポンスを取得
+        setLambdaResponse('リクエスト成功' + response.data.body);
+      })
+      .catch((error) => {
+        // エラー処理
+        setLambdaResponse('リクエスト失敗' + error);
+      });
+  };
+
   return (
     <>
       
@@ -153,6 +176,12 @@ function Home() {
 
       <TodoListComponent todos={todos} onStatusChange={handleStatusChange} />
 
+      {/* Lambdaへのリクエストボタンを配置 */}
+      <Button onClick={handleLambdaRequest} variant="contained" align-items="center" sx={{ mt: 2 }}>
+        Lambdaリクエスト
+      </Button>
+      {/* Lambdaからのレスポンスを表示 */}
+      <div>{lambdaResponse}</div>
     </>
   )
 }
